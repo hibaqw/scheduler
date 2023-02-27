@@ -1,9 +1,19 @@
-import React from "react";
 import React, { useState } from 'react';
+import InterviewerList from 'components/InterviewerList';
+import Button from 'components/Button';
 
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const reset = function (){
+    setStudent("");
+    setInterviewer(null);
+  }
+
+  const cancel = function (){
+    reset();
+    props.onCancel();
+  }
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
@@ -19,12 +29,15 @@ export default function Form(props) {
         </form>
         <InterviewerList
         /* your code goes here */
+        interviewers={props.interviewers}
+        value={interviewer}
+        onChange={setInterviewer}
         />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button danger>Cancel</Button>
-          <Button confirm>Save</Button>
+          <Button onClick = {cancel} danger>Cancel</Button>
+          <Button onClick = {props.onSave} confirm>Save</Button>
         </section>
       </section>
     </main>

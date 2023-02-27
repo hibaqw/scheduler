@@ -107,7 +107,7 @@ storiesOf("Button", module)
           id={interviewer.id}
           name={interviewer.name}
           avatar={interviewer.avatar}
-          setInterviewer={action("setInterviewer")(interviewer.id)}
+          setInterviewer={action("setInterviewer")}
         />
       ));
 
@@ -137,7 +137,7 @@ storiesOf("Button", module)
       .add("Clickable", () => (
         <InterviewerList
           interviewers={interviewers}
-          onChange={action("setInterviewer")}
+          onChange = {action("setInterviewer")}
         />
       )); 
 storiesOf("Appointment", module)
