@@ -52,7 +52,7 @@ export default function Application(props) {
   useEffect(() => {
     //axios request here...
     Axios.get("/api/days").then((response) => {
-      setDays(response);
+      setDays(response.data);
     });
 
   }, [])
