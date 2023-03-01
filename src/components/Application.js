@@ -6,7 +6,7 @@ import DayList from "./DayList";
 import Appointment from "./Appointment";
 import axios from "axios";
 import { useEffect } from "react";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -16,8 +16,23 @@ export default function Application(props) {
     appointments: {},
     interviewers: {}
   });
+
+function bookInterview(id, interview) {
+  console.log(id, interview);
+  const appointment = {
+    ...state.appointments[id],
+    interview: { ...interview }
+  };
+
+  const appointments = {
+    ...state.appointments,
+    [id]: appointment
+  };
+  setState({...state, appointments});
+}
   const setDay = day => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const dailyInterviewers = getInterviewersForDay(state,state.day);
 
   useEffect(() => {
     Promise.all([
@@ -26,7 +41,7 @@ export default function Application(props) {
       axios.get('/api/interviewers')
     ]).then((all) => {
       // set your states here with the correct values...
-      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data} ))
+      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }))
     })
     }, []);
   return (
@@ -57,7 +72,9 @@ export default function Application(props) {
           return <Appointment
             key={appointment.id}
             interview={interview}
+            interviewers= {dailyInterviewers}
             {...appointment}
+            bookInterview = {bookInterview}
           />
         })}
         <Appointment key="last" time="5pm" />
