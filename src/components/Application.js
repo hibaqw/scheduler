@@ -28,7 +28,15 @@ function bookInterview(id, interview) {
     ...state.appointments,
     [id]: appointment
   };
-  setState({...state, appointments});
+  axios
+    .put(`/api/appointments/${id}`, {interview})
+    .then((response) => {
+        console.log(response);
+        setState({...state, appointments});
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 }
   const setDay = day => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
@@ -69,6 +77,7 @@ function bookInterview(id, interview) {
       <section className="schedule">
         {dailyAppointments.map((appointment) => {
           const interview = getInterview(state, appointment.interview);
+          console.log("interviews: ", interview);
           return <Appointment
             key={appointment.id}
             interview={interview}
