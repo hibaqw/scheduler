@@ -34,9 +34,6 @@ function bookInterview(id, interview) {
         console.log(response);
         setState({...state, appointments});
     })
-    .catch((err) => {
-        console.log(err);
-    });
 }
 
 function cancelInterview(id){
@@ -56,9 +53,6 @@ function cancelInterview(id){
         console.log(response);
         setState({...state, appointments});
     })
-    .catch((err) => {
-        console.log(err);
-    });
 
 }
   const setDay = day => setState({ ...state, day });
