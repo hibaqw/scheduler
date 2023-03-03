@@ -75,13 +75,13 @@ export default function useApplicationData () {
       let newDay = {...day, spots: day.spots-1};
       let days = [...state.days.slice(dayId)];
       days.splice(dayId-1, 0 , newDay);
-      console.log("here is days",days);
+      // console.log("here is days",days);
       return days;
     }
     let newDay = {...day, spots: day.spots+ 1};
     let days = [...state.days.slice(dayId)];
     days.splice(dayId-1, 0 , newDay);
-    console.log("here is days",days);
+    // console.log("here is days",days);
     return days;
 
 
