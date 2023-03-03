@@ -74,7 +74,8 @@ export default {
     }
 
     if (url === "/api/interviewers") {
-      /* Resolve interviewers data */return Promise.resolve({
+      /* Resolve interviewers data */
+      return Promise.resolve({
           status: 200,
           statusText: "OK",
           data: fixtures.interviewers
@@ -82,4 +83,14 @@ export default {
 
     }
   })
+  // ,
+  // put: jest.fn(url => {
+  //   if (url === `/api/appointments/${fixtures.appointments.id}`) {
+  //     return Promise.resolve({
+  //       status: 204,
+  //       statusText: "No Content"
+
+  //     });
+  //   }
+  // })
 }
