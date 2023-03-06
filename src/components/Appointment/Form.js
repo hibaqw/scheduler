@@ -9,6 +9,7 @@ export default function Form(props) {
   const reset = function (){
     setStudent("");
     setInterviewer(null);
+    setError("");
   }
 
   const cancel = function (){
@@ -42,6 +43,7 @@ export default function Form(props) {
           />
         </form>
         <section className="appointment__validation">{error}</section>
+        
         <InterviewerList
         /* your code goes here */
         interviewers={props.interviewers}

@@ -46,7 +46,7 @@ export default function Appointment(props) {
 
   function confirm(){
     transition(CONFIRM);
-  }``
+  }
   return (
     <article className="appointment" data-testid="appointment">
       <Header time={props.time} />

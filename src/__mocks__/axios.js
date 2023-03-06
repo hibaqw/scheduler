@@ -83,14 +83,14 @@ export default {
 
     }
   })
-  // ,
-  // put: jest.fn(url => {
-  //   if (url === `/api/appointments/${fixtures.appointments.id}`) {
-  //     return Promise.resolve({
-  //       status: 204,
-  //       statusText: "No Content"
+  ,
+  put: jest.fn(url => {
+      return Promise.resolve({
+        status: 204,
+        statusText: "No Content"
+      });
 
-  //     });
-  //   }
-  // })
+  })
+  ,
+  delete : jest.fn()
 }
