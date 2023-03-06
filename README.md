@@ -21,3 +21,8 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Final Product
+
+!["Screenshot of user booking appointment"]()
+!["Screenshot of homepage after appointment is booked"]()
