@@ -24,5 +24,5 @@ npm run storybook
 
 ## Final Product
 
-!["Screenshot of user booking appointment"]()
-!["Screenshot of homepage after appointment is booked"]()
+!["Screenshot of user booking appointment"](https://github.com/hibaqw/scheduler/blob/master/docs/appointment-form.png?raw=true)
+!["Screenshot of homepage after appointment is booked"](https://github.com/hibaqw/scheduler/blob/master/docs/scheduler-homepage.png?raw=true)
