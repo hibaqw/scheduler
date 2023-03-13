@@ -12,7 +12,7 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview, editing= false) {
     console.log(id, interview);
     const appointment = {
       ...state.appointments[id],
@@ -26,13 +26,19 @@ export default function useApplicationData() {
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((response) => {
-        const days = updateSpots(id, true);
-        setState({ ...state, appointments, days });
+       
+        if (!editing){
+          const days = updateSpots(id, true);
+          setState({ ...state, appointments, days });
+          return;
+
+        }
+        setState({ ...state, appointments });
       })
   }
 
   function cancelInterview(id) {
-    console.log(id);
+  
     const delAppointment = {
       ...state.appointments[id],
       interview: null
@@ -46,6 +52,7 @@ export default function useApplicationData() {
       .delete(`/api/appointments/${id}`)
       .then((response) => {
         console.log(response);
+        console.log("in state: ", state.days)
         const days = updateSpots(id);
         setState({ ...state, appointments, days });
 
@@ -53,7 +60,7 @@ export default function useApplicationData() {
 
   }
 
-  function updateSpots(id, delSpot = false) {
+  function updateSpots(id, delSpot= false) {
     /**
      * 1. iterate thru state.days.appointments to find appointment id
      * 2. check if state.appointments.appointment is null or not
@@ -61,29 +68,25 @@ export default function useApplicationData() {
      * 4. update state.days.day.spots 
      */
     let dayId = undefined;
-    console.log("in update states");
+   
     Object.keys(state.days).forEach((key) => {
       const dailyAppointments = state.days[key].appointments;
       if (dailyAppointments.includes(id)) {
         dayId = state.days[key].id;
-        console.log("printing...", state.days[key].name);
       }
     });
     const day = state.days[dayId - 1];
+    let spots = day.spots
     if (delSpot) {
-      let newDay = { ...day, spots: day.spots - 1 };
-      let days = [...state.days.slice(dayId)];
-      days.splice(dayId - 1, 0, newDay);
-      // console.log("here is days",days);
-      return days;
+      spots--;
     }
-    let newDay = { ...day, spots: day.spots + 1 };
-    let days = [...state.days.slice(dayId)];
-    days.splice(dayId - 1, 0, newDay);
-    // console.log("here is days",days);
-    return days;
-
-
+    else {
+      spots++;
+    }
+    const newDaysArr= state.days.map(d => {
+      return d.name === day.name? {...day,spots}: d
+    })
+    return newDaysArr;
   }
   const setDay = day => setState({ ...state, day });
   useEffect(() => {

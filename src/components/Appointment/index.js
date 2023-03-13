@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import "components/Appointment/styles.scss"
 import Header from "./Header";
 import Show from "./Show";
@@ -28,6 +28,13 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
+    if (mode === EDITING) {
+      transition(SAVING);
+      props.bookInterview(props.id, interview, true)
+      .then(() => transition(SHOW))
+      .catch(error => transition(ERROR_SAVE, true))
+      return;
+    }
     transition(SAVING);
     props.bookInterview(props.id, interview)
     .then(() => transition(SHOW))
@@ -47,6 +54,7 @@ export default function Appointment(props) {
   function confirm(){
     transition(CONFIRM);
   }
+
   return (
     <article className="appointment" data-testid="appointment">
       <Header time={props.time} />

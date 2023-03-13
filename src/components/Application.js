@@ -43,9 +43,10 @@ export default function Application(props) {
         {dailyAppointments.map((appointment) => {
           return <Appointment
             key={appointment.id}
+            id= {appointment.id}
+            time = {appointment.time}
             interview={getInterview(state,appointment.interview)}
             interviewers= {dailyInterviewers}
-            {...appointment}
             bookInterview = {bookInterview}
             cancelInterview = {cancelInterview}
           />
